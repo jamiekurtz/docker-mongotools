@@ -6,4 +6,7 @@ RUN apt-get update -y \
     && apt-get install -y mongodb-org-shell \
     && apt-get install -y mongodb-org-tools
 
+VOLUME /wd
+
+WORKDIR /wd
 
