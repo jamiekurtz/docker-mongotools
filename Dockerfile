@@ -1,14 +1,14 @@
-FROM ubuntu:bionic
+FROM ubuntu:trusty
 
 RUN apt-get update -y \
-    && apt-get install -y wget gnupg iputils-ping telnet
+    && apt-get install -y wget gnupg iputils-ping telnet curl
 
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | apt-key add -
-RUN echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/3.6 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+RUN curl "https://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.0/multiverse/binary-amd64/mongodb-org-shell_3.0.15_amd64.deb" --output mongo-shell-3.0.deb
+RUN curl "https://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.0/multiverse/binary-amd64/mongodb-org-tools_3.0.15_amd64.deb" --output mongo-tools-3.0.deb
 
-RUN apt-get update -y \
-    && apt-get install -y mongodb-org-shell \
-    && apt-get install -y mongodb-org-tools
+RUN dpkg -i ./mongo-shell-3.0.deb
+RUN dpkg -i ./mongo-tools-3.0.deb
+
 
 VOLUME /wd
 
